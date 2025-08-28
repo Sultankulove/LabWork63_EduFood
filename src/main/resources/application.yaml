@@ -10,6 +10,19 @@ spring:
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
 
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        web: info
+        security: debug
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n'
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%-5level){blue} %clr([%X{requestId}]){magenta} %clr(%logger{36}){cyan} - %msg%n"
+  file:
+    path: logs
+
 server:
   port: 9191
 
