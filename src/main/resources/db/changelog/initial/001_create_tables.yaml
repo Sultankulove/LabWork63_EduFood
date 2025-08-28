@@ -1,0 +1,168 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001_1_create_users_table
+      author: elturan_sultankulov
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: varchar(60)
+              - column:
+                  name: email
+                  type: varchar(60)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 001_2_create_orders_table
+      author: elturan_sultankulov
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_user_id
+                    references: users(id)
+              - column:
+                  name: total_price
+                  type: decimal
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 001_3_create_restaurants_table
+      author: elturan_sultankulov
+      changes:
+        - createTable:
+            tableName: restaurants
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(500)
+              - column:
+                  name: image_url
+                  type: varchar(500)
+
+  - changeSet:
+      id: 001_4_create_dishes_table
+      author: elturan_sultankulov
+      changes:
+        - createTable:
+            tableName: dishes
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: name
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(500)
+              - column:
+                  name: price
+                  type: decimal
+
+              - column:
+                  name: image_url
+                  type: varchar(500)
+
+              - column:
+                  name: restaurant_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_dishes_restaurant_id
+                    references: restaurants(id)
+
+  - changeSet:
+      id: 001_5_create_order_items_table
+      author: elturan_sultankulov
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: id
+                  type: long
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: order_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_items_order_id
+                    references: orders(id)
+
+              - column:
+                  name: dish_id
+                  type: long
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_items_dish_id
+                    references: dishes(id)
+
+              - column:
+                  name: quantity
+                  type: int
+                  constraints:
+                    nullable: false
