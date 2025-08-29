@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_added_column_for_orders_column_table
+      author: Elturan_Sultankulov
+      changes:
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
