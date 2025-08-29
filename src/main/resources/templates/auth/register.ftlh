@@ -11,6 +11,7 @@
                     </div>
                     <div class="card-body">
                         <form method="post" action="/auth/register">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="mb-3">
                                 <label for="username" class="form-label">Имя пользователя</label>
                                 <input type="text" id="username" name="username" class="form-control"
