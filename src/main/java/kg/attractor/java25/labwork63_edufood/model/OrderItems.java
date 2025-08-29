@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "order_items")
 public class OrderItems {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

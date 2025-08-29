@@ -16,30 +16,37 @@
             <a class="navbar-brand" href="/">EduFood</a>
             <div class="d-flex">
 
-                            <#if SPRING_SECURITY_CONTEXT??
-                            && SPRING_SECURITY_CONTEXT.authentication??
-                            && SPRING_SECURITY_CONTEXT.authentication.principal?has_content
-                            && SPRING_SECURITY_CONTEXT.authentication.principal != 'anonymousUser'>
+                <a href="/cart" class="btn btn-outline-primary me-2 position-relative">
+                    🛒 Корзина
+                    <#if cartItemCount?number gt 0>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        ${cartItemCount}
+                        <span class="visually-hidden">товаров в корзине</span>
+                    </span>
+                    </#if>
+                </a>
 
-                                <a href="/cart" class="btn btn-outline-primary me-2">
-                                    🛒 Корзина
-                                </a>
-                                <a href="/profile" class="btn btn-outline-secondary me-2">Профиль</a>
-                                <form action="/logout" method="post" class="d-inline">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                    <button type="submit" class="btn btn-danger">Выйти</button>
-                                </form>
+                <#if SPRING_SECURITY_CONTEXT??
+                && SPRING_SECURITY_CONTEXT.authentication??
+                && SPRING_SECURITY_CONTEXT.authentication.principal?has_content
+                && SPRING_SECURITY_CONTEXT.authentication.principal != 'anonymousUser'>
 
-                            <#else>
-                                <a href="/auth/login" class="btn btn-outline-success me-2">Вход</a>
-                                <a href="/auth/register" class="btn btn-primary">Регистрация</a>
-                            </#if>
+                    <a href="/profile/orders" class="btn btn-outline-secondary me-2">Профиль</a>
+                    <form action="/logout" method="post" class="d-inline">
+                        <#if _csrf??>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        </#if>
+                        <button type="submit" class="btn btn-danger">Выйти</button>
+                    </form>
+
+                <#else>
+                    <a href="/auth/login" class="btn btn-outline-success me-2">Вход</a>
+                    <a href="/auth/register" class="btn btn-primary">Регистрация</a>
+                </#if>
             </div>
         </div>
-
-
-
     </nav>
+
 
     <main class="container content">
         <#nested>

@@ -10,17 +10,16 @@
             <#list dishes.content as dish>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="${dish.imageUrl}" class="card-img-top" alt="${dish.name}" style="height: 200px; object-fit: cover;">
+                        <img src="/images/download/${dish.imageUrl}" class="card-img-top" alt="${dish.name}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">${dish.name}</h5>
                             <p class="card-text">${dish.description}</p>
-                            <p class="card-text fw-bold">${dish.price} ₽</p>
+                            <p class="card-text fw-bold">${dish.price} сом</p>
 
-                            <form method="post" action="/cart/add">
+                            <form method="post" action="/cart/add" class="d-flex flex-wrap align-items-center gap-2">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
                                 <input type="hidden" name="dishId" value="${dish.id}">
-                                <input type="number" name="quantity" value="1" min="1" class="form-control mb-2" style="width: 80px;">
+                                <input type="number" name="quantity" value="1" min="1" max="100" class="form-control" style="width: 80px;">
                                 <button type="submit" class="btn btn-primary">Добавить в корзину</button>
                             </form>
 
@@ -37,18 +36,31 @@
                         <li class="page-item">
                             <a class="page-link" href="/restaurants/${restaurant.id}?page=${dishes.number - 1}">← Назад</a>
                         </li>
-                    </#if>
-                    <li class="page-item active">
-                        <span class="page-link">${dishes.number + 1}</span>
+                    <#else>
+                        <li class="page-item disabled">
+                        <span class="page-link">← Назад</span>
                     </li>
+                    </#if>
+
+                    <#list 0..(dishes.totalPages - 1) as i>
+                    <li class="page-item <#if i == dishes.number>active</#if>">
+                        <a class="page-link" href="/restaurants/${restaurant.id}?page=${i}">${i + 1}</a>
+                    </li>
+                    </#list>
+
                     <#if dishes.hasNext()>
-                        <li class="page-item">
-                            <a class="page-link" href="/restaurants/${restaurant.id}?page=${dishes.number + 1}">Далее →</a>
-                        </li>
+                    <li class="page-item">
+                        <a class="page-link" href="/restaurants/${restaurant.id}?page=${dishes.number + 1}">Далее →</a>
+                    </li>
+                    <#else>
+                    <li class="page-item disabled">
+                        <span class="page-link">Далее →</span>
+                    </li>
                     </#if>
                 </ul>
             </nav>
         </div>
-    </div>
 
-</@l.layout>
+
+
+        </@l.layout>
