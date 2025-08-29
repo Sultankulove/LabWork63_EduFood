@@ -33,7 +33,9 @@
 
                     <a href="/profile/orders" class="btn btn-outline-secondary me-2">Профиль</a>
                     <form action="/logout" method="post" class="d-inline">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <#if _csrf??>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        </#if>
                         <button type="submit" class="btn btn-danger">Выйти</button>
                     </form>
 

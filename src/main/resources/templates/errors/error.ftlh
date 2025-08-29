@@ -3,6 +3,7 @@
 <@l.layout title="Ошибка ${status}">
     <div class="container mt-5">
         <div class="alert alert-danger shadow-sm p-4 rounded">
+
             <h1 class="display-5">Ошибка ${status}: ${reason!}</h1>
 
             <#if message?? && message?length != 0>

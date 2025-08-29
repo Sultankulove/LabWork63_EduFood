@@ -10,7 +10,7 @@
             <#list dishes.content as dish>
                 <div class="col">
                     <div class="card h-100">
-                        <img src="${dish.imageUrl}" class="card-img-top" alt="${dish.name}" style="height: 200px; object-fit: cover;">
+                        <img src="/images/download/${dish.imageUrl}" class="card-img-top" alt="${dish.name}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">${dish.name}</h5>
                             <p class="card-text">${dish.description}</p>

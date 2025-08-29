@@ -23,7 +23,10 @@
             <#list restaurants.content as restaurant>
                 <div class="col">
                     <div class="card h-100 shadow-sm">
-                        <img src="${restaurant.imageUrl}" class="card-img-top" alt="${restaurant.name}" style="height: 400px; object-fit: cover;">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <img src="images/download/${restaurant.imageUrl}" class="card-img-top" alt="${restaurant.name}" style="height: 400px; object-fit: cover;">
+<#--                        <img src="/images/download?filename=${restaurant.imageUrl}" class="card-img-top" alt="${restaurant.name}" style="height: 400px; object-fit: cover;">-->
+
                         <div class="card-body">
                             <h5 class="card-title">${restaurant.name}</h5>
                             <p class="card-text">${restaurant.description}</p>
